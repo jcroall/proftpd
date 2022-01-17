@@ -37,7 +37,7 @@ jobs:
       - name: Get Synopsys GitHub Tools
         run: |
           git clone -q --depth 1 $SYNOPSYS_GITHUB_TOOLS_REPO
-          pip3 install --upgrade pandas requests==2.26.0 urllib3==1.26.7 jsonapi-requests==0. 6.2 tenacity==6.2.0 pygithub suds
+          #pip3 install --upgrade pandas requests==2.26.0 urllib3==1.26.7 jsonapi-requests==0. 6.2 tenacity==6.2.0 pygithub suds
 
       - name: Hello
         run: |
