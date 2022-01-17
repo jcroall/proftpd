@@ -1,7 +1,7 @@
 name: PR Comment Resolve
 on:
   pull_request_review_comment:
-    types: [resolved]
+    types: [deleted]
 
 jobs:
   resolve-comment:
