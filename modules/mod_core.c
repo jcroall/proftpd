@@ -2497,7 +2497,7 @@ MODRET set_allowdenyusergroupclass(cmd_rec *cmd) {
   config_rec *c;
   char **argv;
   int argc, eval_type;
-  array_header *acl;
+  array_header *acl, *acl2;
  
   CHECK_CONF(cmd, CONF_LIMIT);
 
@@ -2575,10 +2575,12 @@ MODRET set_allowdenyusergroupclass(cmd_rec *cmd) {
   }
 
   acl = pr_expr_create(cmd->tmp_pool, &argc, argv);
+  acl2 = pr_expr_create(cmd->tmp_pool, &argc, argv);
 
   c = add_config_param(cmd->argv[0], 0);
 
   c->argc = acl->nelts + 1;
+  c->argc = acl2->nelts + 1;
   c->argv = pcalloc(c->pool, (c->argc + 1) * sizeof(char *));
 
   c->argv[0] = pcalloc(c->pool, sizeof(unsigned char));
@@ -2592,6 +2594,14 @@ MODRET set_allowdenyusergroupclass(cmd_rec *cmd) {
       acl->elts = ((char **) acl->elts) + 1;
     }
   }
+
+  if (acl2) {
+    while (acl2->nelts--) {
+      *argv++ = pstrdup(c->pool, *((char **) acl2->elts));
+      acl2->elts = ((char **) acl2->elts) + 1;
+    }
+  }
+
 
   *argv = NULL;
 
