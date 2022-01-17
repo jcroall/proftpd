@@ -5,12 +5,39 @@ on:
 
 jobs:
   resolve-comment:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+
+    env:
+      # The following variables must be configured in your GitHub project or
+      # organization settings:
+      #   COVERITY_URL: URL to Coverity Connect
+      #   COVERITY_USER: Username to authenticate to Coverity Connect
+      #   COVERITY_LICENSE: The text contents of your license.dat that will be
+      #     passed to the Coverity analysis software.
+      COVERITY_URL: ${{ secrets.COVERITY_URL }}
+      COV_USER: ${{ secrets.COVERITY_USER }}
+      COVERITY_PASSPHRASE: ${{ secrets.COVERITY_PASSPHRASE }}
+      COVERITY_LICENSE: ${{ secrets.COVERITY_LICENSE }}
+      # Some Coverity command line utilities are not found in the bin
+      # directory. Configure the COVERITY_HOME here:
+      # Note: currently set to JBC VM
+      COVERITY_HOME: /home/runner/cov-analysis-linux64
+      # The SYNOPSYS_GITHUB_TOOLS_REPO specifies the repository from which
+      # to download the supportive Python scripts for this configuration.
+      SYNOPSYS_GITHUB_TOOLS_REPO: https://github.com/synopsys-sig-community/synopsys-github-  tools
+
     steps:
       # Checkout is necessary here due to referencing a local action.
       # It's also necessary when using the 'config-from-file' option.
       # Otherwise, avoid using checkout to keep this workflow fast.
       - uses: actions/checkout@v2
+
+      # Fetch scripts for automating GitHub tasks from another repository.
+      # Also set up necessary Python dependencies.
+      - name: Get Synopsys GitHub Tools
+        run: |
+          git clone -q --depth 1 $SYNOPSYS_GITHUB_TOOLS_REPO
+          pip3 install --upgrade pandas requests==2.26.0 urllib3==1.26.7 jsonapi-requests==0. 6.2 tenacity==6.2.0 pygithub suds
 
       - name: Hello
         run: |
