@@ -89,6 +89,7 @@ jobs:
         run: |
           export COVERITY_STREAM_NAME=${GITHUB_REPOSITORY##*/}-${GITHUB_REF##*/}
           # XXX For ProFtpd C/C++ project
+          cov-configure --gcc
           ./configure
           cov-build --dir idir make all
           # XXX For ProFtpd C/C++ project
