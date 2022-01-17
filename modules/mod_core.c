@@ -2497,7 +2497,7 @@ MODRET set_allowdenyusergroupclass(cmd_rec *cmd) {
   config_rec *c;
   char **argv;
   int argc, eval_type;
-  array_header *acl;
+  array_header *acl, *acl2;
  
   CHECK_CONF(cmd, CONF_LIMIT);
 
