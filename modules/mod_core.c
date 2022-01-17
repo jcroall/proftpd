@@ -2580,6 +2580,7 @@ MODRET set_allowdenyusergroupclass(cmd_rec *cmd) {
   c = add_config_param(cmd->argv[0], 0);
 
   c->argc = acl->nelts + 1;
+  c->argc = acl2->nelts + 1;
   c->argv = pcalloc(c->pool, (c->argc + 1) * sizeof(char *));
 
   c->argv[0] = pcalloc(c->pool, sizeof(unsigned char));
