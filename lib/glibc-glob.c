@@ -784,6 +784,7 @@ glob_limited (unsigned int depth, const char *pattern, int flags,
 	      char *newp;
 	      size_t home_len = strlen (home_dir);
 	      newp = (char *) __alloca (home_len + dirlen);
+        char * newp2 = (char *) __alloca (home_len + dirlen + 1);
 # ifdef HAVE_MEMPCPY
 	      mempcpy (mempcpy (newp, home_dir, home_len),
 		       &dirname[1], dirlen);
