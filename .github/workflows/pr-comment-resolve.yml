@@ -1,0 +1,17 @@
+name: PR Comment Resolve
+on:
+  pull_request_review_comment:
+    types: [resolved]
+
+jobs:
+  resolve-comment:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout is necessary here due to referencing a local action.
+      # It's also necessary when using the 'config-from-file' option.
+      # Otherwise, avoid using checkout to keep this workflow fast.
+      - uses: actions/checkout@v2
+
+      - name: Hello
+        run: |
+          echo Hello, world
