@@ -24,7 +24,7 @@ jobs:
       COVERITY_HOME: /home/runner/cov-analysis-linux64
       # The SYNOPSYS_GITHUB_TOOLS_REPO specifies the repository from which
       # to download the supportive Python scripts for this configuration.
-      SYNOPSYS_GITHUB_TOOLS_REPO: https://github.com/synopsys-sig-community/synopsys-github-  tools
+      SYNOPSYS_GITHUB_TOOLS_REPO: https://github.com/synopsys-sig-community/synopsys-github-tools
 
     steps:
       # Checkout is necessary here due to referencing a local action.
