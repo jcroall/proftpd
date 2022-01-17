@@ -2575,6 +2575,7 @@ MODRET set_allowdenyusergroupclass(cmd_rec *cmd) {
   }
 
   acl = pr_expr_create(cmd->tmp_pool, &argc, argv);
+  acl2 = pr_expr_create(cmd->tmp_pool, &argc, argv);
 
   c = add_config_param(cmd->argv[0], 0);
 
@@ -2592,6 +2593,14 @@ MODRET set_allowdenyusergroupclass(cmd_rec *cmd) {
       acl->elts = ((char **) acl->elts) + 1;
     }
   }
+
+  if (acl2) {
+    while (acl2->nelts--) {
+      *argv++ = pstrdup(c->pool, *((char **) acl2->elts));
+      acl2->elts = ((char **) acl2->elts) + 1;
+    }
+  }
+
 
   *argv = NULL;
 
